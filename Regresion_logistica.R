@@ -1,10 +1,13 @@
-
+setwd("C:/Users/Kevin Macario/Desktop/Uvg/9no Semestre/Mineria de Datos/HT-6.-Regresi-n-log-stica/house-prices-advanced-regression-techniques")
+datatest <- read.csv('test.csv')
+datatrain <- read.csv('train.csv')
+prices <- read.csv('sample_submission.csv')
 
 porcentaje<-0.8
 set.seed(666)
 
-
 datatestc = merge(x = datatest, y = prices, by = "Id")
+
 
 datos = rbind(datatestc, datatrain)
 colSums(is.na(datos))
@@ -39,9 +42,19 @@ plot(histo3, c = c3,add = TRUE)
 
 ###################
 
+library(caret)
+library(dummies)
+
+datos<-cbind(datos,dummy(datos$grupo), verbose = T)
+
 corte <- sample(nrow(datos),nrow(datos)*porcentaje)
 train<-datos[corte,mask]
 test<-datos[-corte,mask]
 
 ################# 
 
+model<-glm(as.factor(train$datos1)~., data = train[,c(1:38,8)],family = binomial(), maxit=100)
+
+pred<-predict(model,newdata = test[1:38,], type = "response")
+prediccion<-ifelse(pred>=0.5,1,0)
+confusionMatrix(as.factor(test$datosvirginica),as.factor(prediccion))
