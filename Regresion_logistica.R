@@ -1,8 +1,13 @@
-
+library(caret)
+library(dummies)
+setwd("D:/AxelFolder/University/mineria_de_datos/HT-6.-Regresi-n-log-stica")
 
 porcentaje<-0.8
 set.seed(666)
 
+datatest <- read.csv("house-prices-advanced-regression-techniques/test.csv")
+prices <- read.csv("house-prices-advanced-regression-techniques/sample_submission.csv")
+datatrain <- read.csv("house-prices-advanced-regression-techniques/train.csv")
 
 datatestc = merge(x = datatest, y = prices, by = "Id")
 
@@ -44,4 +49,4 @@ train<-datos[corte,mask]
 test<-datos[-corte,mask]
 
 ################# 
-
+dommies_usar <-cbind(datos,dummy(datos$grupo,verbose = T))
