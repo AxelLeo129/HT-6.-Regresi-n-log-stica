@@ -71,4 +71,3 @@ model<-glm(as.factor(train$datos1)~., data = train[,c(1:38,8)],family = binomial
 pred<-predict(model,newdata = test[1:38,], type = "response")
 prediccion<-ifelse(pred>=0.5,1,0)
 confusionMatrix(as.factor(test$datosvirginica),as.factor(prediccion))
-
