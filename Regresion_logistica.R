@@ -67,13 +67,19 @@ train<-datos[corte,mask]
 test<-datos[-corte,mask]
 
 ################# 
-c(1:38,40)
+
 t <- proc.time()
 model<-glm(as.factor(train$datos1)~., data = train[,c(1:38,40)],family = binomial(), maxit=100)
 pred<-predict(model,newdata = test[,1:38], type = "response")
 prediccion<-ifelse(pred>=0.5,1,0)
 confusionMatrix(as.factor(test$datos1),as.factor(prediccion))
 proc.time()-t
+
+pred<-predict(model,newdata = train[,1:38], type = "response")
+prediccion<-ifelse(pred>=0.5,1,0)
+confusionMatrix(as.factor(train$datos1),as.factor(prediccion))
+
+
 
 t <- proc.time()
 model<-glm(as.factor(train$datos2)~., data = train[,c(1:38,41)],family = binomial(), maxit=100)
@@ -82,9 +88,21 @@ prediccion<-ifelse(pred>=0.5,1,0)
 confusionMatrix(as.factor(test$datos2),as.factor(prediccion))
 proc.time()-t
 
+pred<-predict(model,newdata = train[,1:38], type = "response")
+prediccion<-ifelse(pred>=0.5,1,0)
+confusionMatrix(as.factor(train$datos2),as.factor(prediccion))
+
+
+
 t <- proc.time()
-model<-glm(as.factor(train$datos2)~., data = train[,c(1:38,42)],family = binomial(), maxit=100)
+model<-glm(as.factor(train$datos3)~., data = train[,c(1:38,42)],family = binomial(), maxit=100)
 pred<-predict(model,newdata = test[,1:38], type = "response")
 prediccion<-ifelse(pred>=0.5,1,0)
 confusionMatrix(as.factor(test$datos3),as.factor(prediccion))
 proc.time()-t
+
+pred<-predict(model,newdata = train[,1:38], type = "response")
+prediccion<-ifelse(pred>=0.5,1,0)
+confusionMatrix(as.factor(train$datos3),as.factor(prediccion))
+
+
