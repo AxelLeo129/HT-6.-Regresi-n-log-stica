@@ -6,21 +6,18 @@
 #=======
 library(caret)
 library(dummies)
-#setwd("D:/AxelFolder/University/mineria_de_datos/HT-6.-Regresi-n-log-stica")
+setwd("D:/AxelFolder/University/mineria_de_datos/HT-6.-Regresi-n-log-stica")
 #>>>>>>> c524c2669884e3fb364a8e078a53e10658a44119
 
-setwd("C:/Users/LENOVO/Desktop/Clases/Minería de datos/Github/HT-6.-Regresi-n-log-stica")
+#setwd("C:/Users/LENOVO/Desktop/Clases/Minería de datos/Github/HT-6.-Regresi-n-log-stica")
 
 porcentaje<-0.8
 set.seed(666)
 
-#<<<<<<< HEAD
-#=======
 datatest <- read.csv("house-prices-advanced-regression-techniques/test.csv")
 prices <- read.csv("house-prices-advanced-regression-techniques/sample_submission.csv")
 datatrain <- read.csv("house-prices-advanced-regression-techniques/train.csv")
 
-#>>>>>>> c524c2669884e3fb364a8e078a53e10658a44119
 datatestc = merge(x = datatest, y = prices, by = "Id")
 
 
@@ -57,9 +54,6 @@ plot(histo3, c = c3,add = TRUE)
 
 ###################
 
-library(caret)
-library(dummies)
-
 datos<-cbind(datos,dummy(datos$grupo), verbose = T)
 mask <- unlist(lapply(datos, is.numeric))
 corte <- sample(nrow(datos),nrow(datos)*porcentaje)
@@ -75,10 +69,11 @@ prediccion<-ifelse(pred>=0.5,1,0)
 confusionMatrix(as.factor(test$datos1),as.factor(prediccion))
 proc.time()-t
 
+t <- proc.time()
 pred<-predict(model,newdata = train[,1:38], type = "response")
 prediccion<-ifelse(pred>=0.5,1,0)
 confusionMatrix(as.factor(train$datos1),as.factor(prediccion))
-
+proc.time()-t
 
 
 t <- proc.time()
@@ -88,10 +83,11 @@ prediccion<-ifelse(pred>=0.5,1,0)
 confusionMatrix(as.factor(test$datos2),as.factor(prediccion))
 proc.time()-t
 
+t <- proc.time()
 pred<-predict(model,newdata = train[,1:38], type = "response")
 prediccion<-ifelse(pred>=0.5,1,0)
 confusionMatrix(as.factor(train$datos2),as.factor(prediccion))
-
+proc.time()-t
 
 
 t <- proc.time()
@@ -101,8 +97,9 @@ prediccion<-ifelse(pred>=0.5,1,0)
 confusionMatrix(as.factor(test$datos3),as.factor(prediccion))
 proc.time()-t
 
+t <- proc.time()
 pred<-predict(model,newdata = train[,1:38], type = "response")
 prediccion<-ifelse(pred>=0.5,1,0)
 confusionMatrix(as.factor(train$datos3),as.factor(prediccion))
-
+proc.time()-t
 
